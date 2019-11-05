@@ -2,9 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :gnome_grown, GnomeGrown.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "gnome_grown_test",
+  username: System.get_env("DB_USER"),
+  database: "growbud_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

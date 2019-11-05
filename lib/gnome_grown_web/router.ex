@@ -19,8 +19,9 @@ defmodule GnomeGrownWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GnomeGrownWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/rest", GnomeGrownWeb do
+    pipe_through :api
+
+    resources "/data_points", DataPointController, except: [:new, :edit]
+  end
 end
