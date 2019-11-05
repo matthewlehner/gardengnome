@@ -1,0 +1,8 @@
+<h1>Show Time series</h1>
+
+<ul>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.time_series_path(@conn, :edit, @time_series) %></span>
+<span><%= link "Back", to: Routes.time_series_path(@conn, :index) %></span>

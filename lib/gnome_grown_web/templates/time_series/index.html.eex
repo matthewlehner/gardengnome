@@ -1,0 +1,30 @@
+<h1>Listing Time series</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Bpa</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for time_series <- @time_series do %>
+    <tr>
+      <td>
+        <%= time_series.temperature %>
+      </td>
+      <td>
+        <%= time_series.humidity %>
+      </td>
+      <td>
+        <%= time_series.pressure %>
+      </td>
+      <td>
+        <%= time_series.inserted_at %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

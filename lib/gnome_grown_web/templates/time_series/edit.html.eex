@@ -1,0 +1,5 @@
+<h1>Edit Time series</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.time_series_path(@conn, :update, @time_series)) %>
+
+<span><%= link "Back", to: Routes.time_series_path(@conn, :index) %></span>
