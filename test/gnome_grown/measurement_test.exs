@@ -6,9 +6,19 @@ defmodule GnomeGrown.MeasurementTest do
   describe "data_points" do
     alias GnomeGrown.Measurement.DataPoint
 
-    @valid_attrs %{humidity: 120.5, pressure: 120.5, temperature: 120.5}
-    @update_attrs %{humidity: 456.7, pressure: 456.7, temperature: 456.7}
-    @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil}
+    @valid_attrs %{
+      humidity: 120.5,
+      pressure: 120.5,
+      temperature: 120.5,
+      measured_at: DateTime.utc_now()
+    }
+    @update_attrs %{
+      humidity: 456.7,
+      pressure: 456.7,
+      temperature: 456.7,
+      measured_at: DateTime.utc_now()
+    }
+    @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil, measured_at: nil}
 
     def data_point_fixture(attrs \\ %{}) do
       {:ok, data_point} =
@@ -42,7 +52,10 @@ defmodule GnomeGrown.MeasurementTest do
 
     test "update_data_point/2 with valid data updates the data_point" do
       data_point = data_point_fixture()
-      assert {:ok, %DataPoint{} = data_point} = Measurement.update_data_point(data_point, @update_attrs)
+
+      assert {:ok, %DataPoint{} = data_point} =
+               Measurement.update_data_point(data_point, @update_attrs)
+
       assert data_point.humidity == 456.7
       assert data_point.pressure == 456.7
       assert data_point.temperature == 456.7
@@ -50,7 +63,10 @@ defmodule GnomeGrown.MeasurementTest do
 
     test "update_data_point/2 with invalid data returns error changeset" do
       data_point = data_point_fixture()
-      assert {:error, %Ecto.Changeset{}} = Measurement.update_data_point(data_point, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Measurement.update_data_point(data_point, @invalid_attrs)
+
       assert data_point == Measurement.get_data_point!(data_point.id)
     end
 

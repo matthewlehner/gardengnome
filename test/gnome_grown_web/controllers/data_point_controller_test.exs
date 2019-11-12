@@ -7,14 +7,16 @@ defmodule GnomeGrownWeb.DataPointControllerTest do
   @create_attrs %{
     humidity: 120.5,
     pressure: 120.5,
-    temperature: 120.5
+    temperature: 120.5,
+    measured_at: DateTime.utc_now()
   }
   @update_attrs %{
     humidity: 456.7,
     pressure: 456.7,
-    temperature: 456.7
+    temperature: 456.7,
+    measured_at: DateTime.utc_now()
   }
-  @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil}
+  @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil, measured_at: nil}
 
   def fixture(:data_point) do
     {:ok, data_point} = Measurement.create_data_point(@create_attrs)
@@ -56,8 +58,13 @@ defmodule GnomeGrownWeb.DataPointControllerTest do
   describe "update data_point" do
     setup [:create_data_point]
 
-    test "renders data_point when data is valid", %{conn: conn, data_point: %DataPoint{id: id} = data_point} do
-      conn = put(conn, Routes.data_point_path(conn, :update, data_point), data_point: @update_attrs)
+    test "renders data_point when data is valid", %{
+      conn: conn,
+      data_point: %DataPoint{id: id} = data_point
+    } do
+      conn =
+        put(conn, Routes.data_point_path(conn, :update, data_point), data_point: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
       conn = get(conn, Routes.data_point_path(conn, :show, id))
@@ -71,7 +78,9 @@ defmodule GnomeGrownWeb.DataPointControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, data_point: data_point} do
-      conn = put(conn, Routes.data_point_path(conn, :update, data_point), data_point: @invalid_attrs)
+      conn =
+        put(conn, Routes.data_point_path(conn, :update, data_point), data_point: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end

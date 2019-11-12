@@ -6,9 +6,14 @@ defmodule GnomeGrown.ReportsTest do
   describe "time_series" do
     alias GnomeGrown.Reports.TimeSeries
 
-    @valid_attrs %{}
+    @valid_attrs %{
+      temperature: 24.50,
+      pressure: 1234.01,
+      humidity: 0.45,
+      measured_at: DateTime.utc_now()
+    }
     @update_attrs %{}
-    @invalid_attrs %{}
+    @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil, measured_at: nil}
 
     def time_series_fixture(attrs \\ %{}) do
       {:ok, time_series} =
@@ -39,7 +44,9 @@ defmodule GnomeGrown.ReportsTest do
 
     test "update_time_series/2 with valid data updates the time_series" do
       time_series = time_series_fixture()
-      assert {:ok, %TimeSeries{} = time_series} = Reports.update_time_series(time_series, @update_attrs)
+
+      assert {:ok, %TimeSeries{} = time_series} =
+               Reports.update_time_series(time_series, @update_attrs)
     end
 
     test "update_time_series/2 with invalid data returns error changeset" do

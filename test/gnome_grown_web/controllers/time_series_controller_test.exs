@@ -3,9 +3,19 @@ defmodule GnomeGrownWeb.TimeSeriesControllerTest do
 
   alias GnomeGrown.Reports
 
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{}
+  @create_attrs %{
+    humidity: 120.5,
+    pressure: 120.5,
+    temperature: 120.5,
+    measured_at: DateTime.utc_now()
+  }
+  @update_attrs %{
+    humidity: 456.7,
+    pressure: 456.7,
+    temperature: 456.7,
+    measured_at: DateTime.utc_now()
+  }
+  @invalid_attrs %{humidity: nil, pressure: nil, temperature: nil, measured_at: nil}
 
   def fixture(:time_series) do
     {:ok, time_series} = Reports.create_time_series(@create_attrs)
@@ -56,7 +66,9 @@ defmodule GnomeGrownWeb.TimeSeriesControllerTest do
     setup [:create_time_series]
 
     test "redirects when data is valid", %{conn: conn, time_series: time_series} do
-      conn = put(conn, Routes.time_series_path(conn, :update, time_series), time_series: @update_attrs)
+      conn =
+        put(conn, Routes.time_series_path(conn, :update, time_series), time_series: @update_attrs)
+
       assert redirected_to(conn) == Routes.time_series_path(conn, :show, time_series)
 
       conn = get(conn, Routes.time_series_path(conn, :show, time_series))
@@ -64,7 +76,9 @@ defmodule GnomeGrownWeb.TimeSeriesControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, time_series: time_series} do
-      conn = put(conn, Routes.time_series_path(conn, :update, time_series), time_series: @invalid_attrs)
+      conn =
+        put(conn, Routes.time_series_path(conn, :update, time_series), time_series: @invalid_attrs)
+
       assert html_response(conn, 200) =~ "Edit Time series"
     end
   end
@@ -75,6 +89,7 @@ defmodule GnomeGrownWeb.TimeSeriesControllerTest do
     test "deletes chosen time_series", %{conn: conn, time_series: time_series} do
       conn = delete(conn, Routes.time_series_path(conn, :delete, time_series))
       assert redirected_to(conn) == Routes.time_series_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.time_series_path(conn, :show, time_series))
       end
