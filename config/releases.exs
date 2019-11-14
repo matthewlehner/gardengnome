@@ -4,4 +4,11 @@ config :gnome_grown, GnomeGrownWeb.Endpoint,
   server: true,
   # Needed for Phoenix 1.2 and 1.4. Doesn't hurt for 1.3.
   http: [port: {:system, "PORT"}],
-  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 443]
+  check_origin: false
+
+config :gnome_grown, GnomeGrown.Repo,
+  username: System.get_env("DB_USER"),
+  database: System.get_env("DB_NAME"),
+  password: System.get_env("DB_PASS"),
+  hostname: System.get_env("DB_HOST"),
+  pool_size: 10
