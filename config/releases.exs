@@ -9,6 +9,6 @@ config :gnome_grown, GnomeGrownWeb.Endpoint,
 config :gnome_grown, GnomeGrown.Repo,
   username: System.get_env("DB_USER"),
   database: System.get_env("DB_NAME"),
-  password: System.get_env("DB_PASS"),
+  password: System.get_env("DB_PASS") || nil,
   hostname: System.get_env("DB_HOST"),
   pool_size: 10
