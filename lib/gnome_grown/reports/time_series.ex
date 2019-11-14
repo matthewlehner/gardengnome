@@ -6,6 +6,7 @@ defmodule GnomeGrown.Reports.TimeSeries do
     field :humidity, :float
     field :pressure, :float
     field :temperature, :float
+    field :measured_at, :utc_datetime
 
     timestamps()
   end

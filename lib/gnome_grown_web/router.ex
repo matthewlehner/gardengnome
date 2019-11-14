@@ -16,7 +16,7 @@ defmodule GnomeGrownWeb.Router do
   scope "/", GnomeGrownWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", TimeSeriesController, :index
     resources "/reports", TimeSeriesController, only: [:index]
   end
 

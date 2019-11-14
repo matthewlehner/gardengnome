@@ -6,7 +6,7 @@
       <th>Temperature</th>
       <th>Humidity</th>
       <th>Bpa</th>
-      <th></th>
+      <th>Measured at</th>
     </tr>
   </thead>
   <tbody>
@@ -22,7 +22,7 @@
         <%= time_series.pressure %>
       </td>
       <td>
-        <%= time_series.inserted_at %>
+        <%= time_series.measured_at %>
       </td>
     </tr>
 <% end %>
