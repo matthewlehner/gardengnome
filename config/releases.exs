@@ -11,4 +11,5 @@ config :gnome_grown, GnomeGrown.Repo,
   database: System.get_env("DB_NAME"),
   password: System.get_env("DB_PASS") || nil,
   hostname: System.get_env("DB_HOST"),
+  ssl: false,
   pool_size: 10
